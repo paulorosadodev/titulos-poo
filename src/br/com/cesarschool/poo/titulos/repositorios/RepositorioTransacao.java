@@ -145,4 +145,71 @@ public class RepositorioTransacao {
 
         return transacoes.toArray(new Transacao[0]);
 	}
+
+	public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito) throws IOException {
+		List<Transacao> transacoes = new ArrayList<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader("arquivos/Transacao.txt"))) {
+			String linha;
+
+			while ((linha = br.readLine()) != null) {
+				String[] array = linha.split(";");
+
+				if (Integer.valueOf(array[5]).equals(identificadorEntidadeDebito)) {
+
+					EntidadeOperadora entidadeCredito = new EntidadeOperadora(
+							Long.parseLong(array[0]),
+							array[1],
+							Boolean.parseBoolean(array[2])
+					);
+					entidadeCredito.creditarSaldoAcao(Double.parseDouble(array[3]));
+					entidadeCredito.creditarSaldoTituloDivida(Double.parseDouble(array[4]));
+
+					EntidadeOperadora entidadeDebito = new EntidadeOperadora(
+							Long.parseLong(array[5]),
+							array[6],
+							Boolean.parseBoolean(array[7])
+					);
+					entidadeDebito.creditarSaldoAcao(Double.parseDouble(array[8]));
+					entidadeDebito.creditarSaldoTituloDivida(Double.parseDouble(array[9]));
+
+					Acao acao = null;
+
+					if (!"null".equals(array[10])) {
+						acao = new Acao(
+								Integer.parseInt(array[10]),
+								array[11],
+								LocalDate.parse(array[12]),
+								Double.parseDouble(array[13])
+						);
+					}
+
+					TituloDivida tituloDivida = null;
+
+					if (!"null".equals(array[14])) {
+						tituloDivida = new TituloDivida(
+								Integer.parseInt(array[14]),
+								array[15],
+								LocalDate.parse(array[16]),
+								Double.parseDouble(array[17])
+						);
+					}
+
+					Transacao transacao = new Transacao(
+							entidadeCredito,
+							entidadeDebito,
+							acao,
+							tituloDivida,
+							Double.parseDouble(array[array.length - 2]),
+							LocalDateTime.parse(array[array.length - 1])
+					);
+					transacoes.add(transacao);
+				}
+			}
+		}
+
+		return transacoes.toArray(new Transacao[0]);
+	}
+
 }
+

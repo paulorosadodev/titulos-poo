@@ -1,7 +1,17 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /*
  * Deve ser um singleton.
@@ -116,5 +126,87 @@ public class MediatorOperacao {
             instance = new MediatorOperacao();
         }
         return instance;
+    }
+
+    public String realizarOperacao(boolean ehAcao, int idEntidadeCredito, int idEntidadeDebito,
+                                    int idAcaoOuTitulo, double valor) throws IOException {
+
+        EntidadeOperadora entidadeCredito = mediatorEntidadeOperadora.buscar(idEntidadeCredito);
+        EntidadeOperadora entidadeDebito = mediatorEntidadeOperadora.buscar(idEntidadeDebito);
+
+        if (valor <= 0) {
+            return "Valor inválido";
+        }
+        if (entidadeCredito == null) {
+            return "Entidade crédito inexistente";
+        }
+        if (entidadeDebito == null) {
+            return "Entidade débito inexistente";
+        }
+        if (ehAcao && !entidadeCredito.isAutorizadoAcao()) {
+            return "Entidade de crédito não autorizada para ação";
+        }
+        if (ehAcao && !entidadeDebito.isAutorizadoAcao()) {
+            return "Entidade de débito não autorizada para ação";
+        }
+
+        Acao acao = null;
+        TituloDivida titulo = null;
+        double valorOperacao = valor;
+
+        if (ehAcao) {
+            acao = mediatorAcao.buscar(idAcaoOuTitulo);
+
+            if (entidadeDebito.getSaldoAcao() < valor) {
+                return "Saldo da entidade débito insuficiente";
+            }
+            if (acao.getValorUnitario() > valor) {
+                return "Valor da operação é menor do que o valor unitário da ação";
+            }
+
+            entidadeCredito.creditarSaldoAcao(valorOperacao);
+            entidadeDebito.debitarSaldoAcao(valorOperacao);
+
+        } else {
+            titulo = mediatorTituloDivida.buscar(idAcaoOuTitulo);
+
+            if (entidadeDebito.getSaldoTituloDivida() < valor) {
+                return "Saldo da entidade débito insuficiente";
+            }
+
+            valorOperacao = titulo.calcularPrecoTransacao(valor);
+
+            entidadeCredito.creditarSaldoTituloDivida(valorOperacao);
+            entidadeDebito.debitarSaldoTituloDivida(valorOperacao);
+        }
+
+        String atualizacaoCredito = mediatorEntidadeOperadora.alterar(entidadeCredito);
+        if (atualizacaoCredito != null) {
+            return atualizacaoCredito;
+        }
+
+        String atualizacaoDebito = mediatorEntidadeOperadora.alterar(entidadeDebito);
+        if (atualizacaoDebito != null) {
+            return atualizacaoDebito;
+        }
+
+        Transacao transacao = new Transacao(entidadeCredito, entidadeDebito, acao, titulo, valorOperacao,
+                LocalDateTime.now());
+
+        repositorioTransacao.incluir(transacao);
+        return null;
+    }
+
+    public Transacao[] gerarExtrato(int entidade) throws IOException {
+        Transacao[] entidadeEhCredora = repositorioTransacao.buscarPorEntidadeCredora(entidade);
+        Transacao[] entidadeEhDevedora = repositorioTransacao.buscarPorEntidadeDevedora(entidade);
+
+        List<Transacao> transacoesCombinadas = new ArrayList<>();
+        Collections.addAll(transacoesCombinadas, entidadeEhCredora);
+        Collections.addAll(transacoesCombinadas, entidadeEhDevedora);
+
+        transacoesCombinadas.sort((t1, t2) -> t2.getDataHoraOperacao().compareTo(t1.getDataHoraOperacao()));
+
+        return transacoesCombinadas.toArray(new Transacao[0]);
     }
 }
