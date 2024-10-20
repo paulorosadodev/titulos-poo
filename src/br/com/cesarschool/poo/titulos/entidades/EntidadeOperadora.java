@@ -28,6 +28,8 @@ public class EntidadeOperadora {
     private double saldoAcao;
     private double saldoTituloDivida;
 
+
+
     public void creditarSaldoAcao(double valor) {
         this.saldoAcao = this.saldoAcao + valor;
     }
@@ -48,6 +50,8 @@ public class EntidadeOperadora {
         this.identificador = identificador;
         this.nome = nome;
         this.autorizadoAcao = autorizadoAcao;
+        this.saldoAcao = 0.0; // Inicializando saldoAcao com 0.0
+        this.saldoTituloDivida = 0.0; // Inicializando saldoTituloDivida com 0.0
     }
 
     public String getNome() {

@@ -1,9 +1,9 @@
 package br.com.cesarschool.poo.titulos;
 
-import java.io.IOException;
+import br.com.cesarschool.poo.titulos.telas.MenuPrincipal;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) {
+        new MenuPrincipal();
     }
 }
