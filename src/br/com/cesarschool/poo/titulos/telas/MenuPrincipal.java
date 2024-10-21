@@ -22,12 +22,14 @@ public class MenuPrincipal extends JFrame {
         JButton btnTitulosDivida = new JButton("Gerenciar Títulos de Dívida");
         JButton btnEntidadesOperadoras = new JButton("Gerenciar Entidades Operadoras");
         JButton btnOperacoes = new JButton("Realizar Operações");
+        JButton btnGerarExtrato = new JButton("Gerar Extrato");
         JButton btnSair = new JButton("Sair");
 
         add(btnAcoes);
         add(btnTitulosDivida);
         add(btnEntidadesOperadoras);
         add(btnOperacoes);
+        add(btnGerarExtrato);
         add(btnSair);
 
         btnAcoes.addActionListener(new ActionListener() {
@@ -55,6 +57,13 @@ public class MenuPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TelaOperacao();
+            }
+        });
+
+        btnGerarExtrato.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TelaExtrato();
             }
         });
 
