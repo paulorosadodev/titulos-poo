@@ -103,16 +103,21 @@ public class TelaAcao extends JFrame {
             String retorno = mediatorAcao.incluir(acao);
             if (retorno == null) {
                 lblMensagem.setText("Ação incluída com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador ou valor unitário inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (DateTimeParseException ex) {
             lblMensagem.setText("Data inválida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao incluir ação!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -127,16 +132,21 @@ public class TelaAcao extends JFrame {
             String retorno = mediatorAcao.alterar(acao);
             if (retorno == null) {
                 lblMensagem.setText("Ação alterada com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador ou valor unitário inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (DateTimeParseException ex) {
             lblMensagem.setText("Data inválida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao alterar ação!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -146,14 +156,18 @@ public class TelaAcao extends JFrame {
             String retorno = mediatorAcao.excluir(identificador);
             if (retorno == null) {
                 lblMensagem.setText("Ação excluída com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao excluir ação!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -166,13 +180,17 @@ public class TelaAcao extends JFrame {
                 txtDataValidade.setText(acao.getDataDeValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 txtValorUnitario.setText(Double.toString(acao.getValorUnitario()));
                 lblMensagem.setText("Ação encontrada!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
             } else {
                 lblMensagem.setText("Ação não encontrada!");
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao buscar ação!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 

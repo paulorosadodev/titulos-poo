@@ -103,16 +103,21 @@ public class TelaTituloDivida extends JFrame {
             String retorno = mediatorTituloDivida.incluir(tituloDivida);
             if (retorno == null) {
                 lblMensagem.setText("Título de Dívida incluído com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador ou taxa de juros inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (DateTimeParseException ex) {
             lblMensagem.setText("Data inválida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao incluir título de dívida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -127,16 +132,21 @@ public class TelaTituloDivida extends JFrame {
             String retorno = mediatorTituloDivida.alterar(tituloDivida);
             if (retorno == null) {
                 lblMensagem.setText("Título de Dívida alterado com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador ou taxa de juros inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (DateTimeParseException ex) {
             lblMensagem.setText("Data inválida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao alterar título de dívida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -146,14 +156,18 @@ public class TelaTituloDivida extends JFrame {
             String retorno = mediatorTituloDivida.excluir(identificador);
             if (retorno == null) {
                 lblMensagem.setText("Título de Dívida excluído com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao excluir título de dívida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -166,13 +180,17 @@ public class TelaTituloDivida extends JFrame {
                 txtDataValidade.setText(tituloDivida.getDataDeValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 txtTaxaJuros.setText(Double.toString(tituloDivida.getTaxaJuros()));
                 lblMensagem.setText("Título de Dívida encontrado!");
+                lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
             } else {
                 lblMensagem.setText("Título de Dívida não encontrado!");
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador inválido!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao buscar título de dívida!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 

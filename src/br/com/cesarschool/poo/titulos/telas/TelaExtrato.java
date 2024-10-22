@@ -77,6 +77,7 @@ public class TelaExtrato extends JFrame {
             }
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao obter entidades operadoras!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 
@@ -96,13 +97,14 @@ public class TelaExtrato extends JFrame {
             String entidadeString = (String) cbxEntidades.getSelectedItem();
             if (entidadeString == null) {
                 lblMensagem.setText("Selecione uma entidade!");
+                lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
                 return;
             }
 
             int idEntidade = Integer.parseInt(entidadeString.split(" - ")[1]);
             Transacao[] transacoes = mediatorOperacao.gerarExtrato(idEntidade);
 
-            if (transacoes.length == 0) { // Verificação se o array de transações está vazio
+            if (transacoes.length == 0) {
                 txtAreaExtrato.setText("Não há transações registradas.");
                 return;
             }
@@ -134,10 +136,13 @@ public class TelaExtrato extends JFrame {
 
             txtAreaExtrato.setText(extrato.toString());
             lblMensagem.setText("Extrato gerado com sucesso!");
+            lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Erro ao obter identificador da entidade!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao gerar extrato!");
+            lblMensagem.setForeground(Color.RED); // Mensagem de erro em vermelho
         }
     }
 }

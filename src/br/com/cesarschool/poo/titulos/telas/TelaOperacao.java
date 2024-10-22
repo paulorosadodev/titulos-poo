@@ -81,6 +81,7 @@ public class TelaOperacao extends JFrame {
             }
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao obter entidades operadoras!");
+            lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
         }
     }
 
@@ -101,6 +102,7 @@ public class TelaOperacao extends JFrame {
             String entidadeDebitoString = (String) cbxEntidadeDebito.getSelectedItem();
             if (entidadeCreditoString == null || entidadeDebitoString == null) {
                 lblMensagem.setText("Selecione as entidades de crédito e débito!");
+                lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
                 return;
             }
 
@@ -112,6 +114,7 @@ public class TelaOperacao extends JFrame {
             // Validação do campo txtValorOperacao
             if (txtValorOperacao.getText().isEmpty()) {
                 lblMensagem.setText("O campo Valor da Operação é obrigatório!");
+                lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
                 return;
             }
 
@@ -120,14 +123,18 @@ public class TelaOperacao extends JFrame {
             String retorno = mediatorOperacao.realizarOperacao(ehAcao, (int) idEntidadeCredito, (int) idEntidadeDebito, idAtivo, valor);
             if (retorno == null) {
                 lblMensagem.setText("Operação realizada com sucesso!");
+                lblMensagem.setForeground(Color.GREEN); // Cor verde para sucesso
                 limparCampos();
             } else {
                 lblMensagem.setText(retorno);
+                lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
             }
         } catch (NumberFormatException ex) {
             lblMensagem.setText("Identificador do ativo ou valor da operação inválido!");
+            lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
         } catch (IOException ex) {
             lblMensagem.setText("Erro ao realizar operação!");
+            lblMensagem.setForeground(Color.RED); // Cor vermelha para erro
         }
     }
 
