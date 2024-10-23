@@ -15,8 +15,6 @@ public class TelaEntidadeOperadora extends JFrame {
     private final JTextField txtIdentificador;
     private final JTextField txtNome;
     private final JCheckBox chkAutorizadoAcao;
-    private final JTextField txtSaldoAcoes;
-    private final JTextField txtSaldoTitulos;
     private final JLabel lblMensagem;
 
     public TelaEntidadeOperadora() {
@@ -24,15 +22,11 @@ public class TelaEntidadeOperadora extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 350); // Aumentar a altura da tela
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(8, 2, 10, 10)); // Adicionar uma linha ao layout
+        setLayout(new GridLayout(6, 2, 10, 10)); // Adicionar uma linha ao layout
 
         txtIdentificador = new JTextField();
         txtNome = new JTextField();
         chkAutorizadoAcao = new JCheckBox("Autorizado para Ações");
-        txtSaldoAcoes = new JTextField();
-        txtSaldoAcoes.setEditable(false);
-        txtSaldoTitulos = new JTextField();
-        txtSaldoTitulos.setEditable(false);
         JButton btnIncluir = new JButton("Incluir");
         JButton btnAlterar = new JButton("Alterar");
         JButton btnExcluir = new JButton("Excluir");
@@ -46,10 +40,6 @@ public class TelaEntidadeOperadora extends JFrame {
         add(txtNome);
         add(new JLabel("Autorizado para Ações:"));
         add(chkAutorizadoAcao);
-        add(new JLabel("Saldo em Ações:"));
-        add(txtSaldoAcoes);
-        add(new JLabel("Saldo em Títulos:"));
-        add(txtSaldoTitulos);
         add(btnIncluir);
         add(btnAlterar);
         add(btnExcluir);
@@ -173,8 +163,6 @@ public class TelaEntidadeOperadora extends JFrame {
             if (entidadeOperadora != null) {
                 txtNome.setText(entidadeOperadora.getNome());
                 chkAutorizadoAcao.setSelected(entidadeOperadora.isAutorizadoAcao());
-                txtSaldoAcoes.setText(String.valueOf(entidadeOperadora.getSaldoAcao())); // Preenchendo saldo em ações
-                txtSaldoTitulos.setText(String.valueOf(entidadeOperadora.getSaldoTituloDivida())); // Preenchendo saldo em títulos
                 lblMensagem.setText("Entidade Operadora encontrada!");
                 lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
             } else {
@@ -194,7 +182,5 @@ public class TelaEntidadeOperadora extends JFrame {
         txtIdentificador.setText("");
         txtNome.setText("");
         chkAutorizadoAcao.setSelected(false);
-        txtSaldoAcoes.setText(""); // Limpar o campo de saldo em ações
-        txtSaldoTitulos.setText(""); // Limpar o campo de saldo em títulos
     }
 }
