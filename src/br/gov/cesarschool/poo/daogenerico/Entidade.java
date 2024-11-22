@@ -16,52 +16,53 @@ import java.time.LocalDateTime;
  *
  * Deve ser abstrata.
  *
- * Deve ter um método abstrato getIdUnico().
+ * Deve ter um métod abstrato getIdUnico().
  *
  * Deve implementar a interface Serializable do JAVA
  */
-public abstract class Entidade implements Serializable {
-
+public abstract class Entidade<T> implements Serializable {
     private LocalDateTime dataHoraInclusao;
     private LocalDateTime dataHoraUltimaAlteracao;
     private String usuarioInclusao;
     private String usuarioUltimaAlteracao;
 
-    public Entidade() {
-
+    public String getUsuarioInclusao() {
+        return usuarioInclusao;
     }
-
-    public abstract String getIdUnico();
 
     public LocalDateTime getDataHoraInclusao() {
         return dataHoraInclusao;
-    }
-
-    public void setDataHoraInclusao(LocalDateTime dataHoraInclusao) {
-        this.dataHoraInclusao = dataHoraInclusao;
     }
 
     public LocalDateTime getDataHoraUltimaAlteracao() {
         return dataHoraUltimaAlteracao;
     }
 
-    public void setDataHoraUltimaAlteracao(LocalDateTime dataHoraUltimaAlteracao) {
-        this.dataHoraUltimaAlteracao = dataHoraUltimaAlteracao;
+    public String getUsuarioUltimaAlteracao() {
+        return usuarioUltimaAlteracao;
     }
 
-    public String getUsuarioInclusao() {
-        return usuarioInclusao;
+    public void setDataHoraInclusao(LocalDateTime dataHoraInclusao) {
+        this.dataHoraInclusao = dataHoraInclusao;
+    }
+
+    public void setDataHoraUltimaAlteracao(LocalDateTime dataHoraUltimaAlteracao) {
+        this.dataHoraUltimaAlteracao = dataHoraUltimaAlteracao;
     }
 
     public void setUsuarioInclusao(String usuarioInclusao) {
         this.usuarioInclusao = usuarioInclusao;
     }
 
-    public String getUsuarioUltimaAlteracao() {
-        return usuarioUltimaAlteracao;
-    }
-
     public void setUsuarioUltimaAlteracao(String usuarioUltimaAlteracao) {
         this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
     }
+
+    public abstract T getIdUnico();
+
+    public Entidade() {
+        dataHoraInclusao = LocalDateTime.now();
+        dataHoraUltimaAlteracao = LocalDateTime.now();
+    }
+
 }
