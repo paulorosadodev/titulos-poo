@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 
 public class TelaAcao extends JFrame {
 
-    private final MediatorAcao mediatorAcao = MediatorAcao.getInstancia();
+    private final MediatorAcao mediatorAcao = MediatorAcao.getInstance();
     private final JTextField txtIdentificador;
     private final JTextField txtNome;
     private final JTextField txtDataValidade;

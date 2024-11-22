@@ -59,7 +59,7 @@ public class EntidadeOperadora extends Entidade {
         return nome;
     }
 
-    public boolean isAutorizadoAcao() {
+    public boolean getAutorizadoAcao() {
         return autorizadoAcao;
     }
 

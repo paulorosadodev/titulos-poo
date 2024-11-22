@@ -1,15 +1,20 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.daogenerico.Entidade;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,190 +28,201 @@ import java.util.List;
  * mediatorEntidadeOperadora, do tipo MediatorEntidadeOperadora
  * repositorioTransacao, do tipo RepositorioTransacao
  *
- * Estes atributos devem ser inicializados nas suas declarações.
+ * Estes atributos devem ser inicializados nas suas declara��es.
  *
- * Estes atributos serão usados exclusivamente pela classe, não tendo, portanto, métodos set e get.
+ * Estes atributos ser�o usados exclusivamente pela classe, n�o tendo, portanto, m�todos set e get.
  *
- * Métodos:
+ * M�todos:
  *
  * public String realizarOperacao(boolean ehAcao, int entidadeCredito,
  * int idEntidadeDebito, int idAcaoOuTitulo, double valor): segue o
- * passo a passo deste método.
+ * passo a passo deste m�todo.
  *
- * 1- Validar o valor, que deve ser maior que zero. Se o valor for inválido,
- * retornar a mensagem "Valor inválido".
+ * 1- Validar o valor, que deve ser maior que zero. Se o valor for inv�lido,
+ * retornar a mensagem "Valor inv�lido".
  *
- * 2- Buscar a entidade de crédito no mediator de entidade operadora.
- * Se não encontrar, retornar a mensagem "Entidade crédito inexistente".
+ * 2- Buscar a entidade de cr�dito no mediator de entidade operadora.
+ * Se n�o encontrar, retornar a mensagem "Entidade cr�dito inexistente".
  *
- * 3- Buscar a entidade de débito no mediator de entidade operadora.
- * Se não encontrar, retornar a mensagem "Entidade débito inexistente".
+ * 3- Buscar a entidade de d�bito no mediator de entidade operadora.
+ * Se n�o encontrar, retornar a mensagem "Entidade d�bito inexistente".
  *
- * 4- Se ehAcao for true e a entidade de crédito não for autorizada para
- * ação, retornar a mensagem "Entidade de crédito não autorizada para ação"
+ * 4- Se ehAcao for true e a entidade de cr�dito n�o for autorizada para
+ * a��o, retornar a mensagem "Entidade de cr�dito n�o autorizada para a��o"
  *
- * 5- Se ehAcao for true e a entidade de débito não for autorizada para
- * ação, retornar a mensagem "Entidade de débito não autorizada para ação"
+ * 5- Se ehAcao for true e a entidade de d�bito n�o for autorizada para
+ * a��o, retornar a mensagem "Entidade de d�bito n�o autorizada para a��o"
  *
- * 6- Buscar a ação (se ehAcao for true) ou o título (se ehAcao for false)
- * no mediator de ação ou de título.
+ * 6- Buscar a a��o (se ehAcao for true) ou o t�tulo (se ehAcao for false)
+ * no mediator de a��o ou de t�tulo.
  *
  * 7- A depender de ehAcao, validar o saldoAcao ou o saldoTituloDivida da
- * entidade de débito. O saldo deve ser maior ou igual a valor. Se não for,
- * retornar a mensagem "Saldo da entidade débito insuficiente".
+ * entidade de d�bito. O saldo deve ser maior ou igual a valor. Se n�o for,
+ * retornar a mensagem "Saldo da entidade d�bito insuficiente".
  *
- * 8- Se ehAcao for true, verificar se valorUnitario da ação é maior do que
+ * 8- Se ehAcao for true, verificar se valorUnitario da a��o � maior do que
  * valor. Se for, retornar a mensagem
- * "Valor da operação e menor do que o valor unitário da ação"
+ * "Valor da opera��o e menor do que o valor unit�rio da a��o"
  *
- * 9- Calcular o valor da operação. Se ehAcao for true, o valor da operação
- * é igual a valor. Se ehAcao for false, o valor da operação é igual ao
- * retorno do método calcularPrecoTransacao, invocado a partir do título da
- * dívida buscado. valor deve ser passado como parâmetro na invocação deste
- * método.
+ * 9- Calcular o valor da opera��o. Se ehAcao for true, o valor da opera��o
+ * � igual a valor. Se ehAcao for false, o valor da opera��o � igual ao
+ * retorno do m�todo calcularPrecoTransacao, invocado a partir do t�tulo da
+ * d�vida buscado. valor deve ser passado como par�metro na invoca��o deste
+ * m�todo.
  *
- *  10- Invocar o método creditarSaldoAcao ou creditarSaldoTituloDivida da
- *  entidade de crédito, passando o valor da operação.
+ *  10- Invocar o m�todo creditarSaldoAcao ou creditarSaldoTituloDivida da
+ *  entidade de cr�dito, passando o valor da opera��o.
  *
- *  11- Invocar o método debitarSaldoAcao ou debitarSaldoTituloDivida da
- *  entidade de débito, passando o valor da operação.
+ *  11- Invocar o m�todo debitarSaldoAcao ou debitarSaldoTituloDivida da
+ *  entidade de d�bito, passando o valor da opera��o.
  *
- *  12- Alterar entidade de crédito no mediator de entidade operadora. Se
+ *  12- Alterar entidade de cr�dito no mediator de entidade operadora. Se
  *  o retorno do alterar for uma mensagem diferente de null, retornar a
  *  mensagem.
  *
- *  13- Alterar entidade de débito no mediator de entidade operadora. Se
+ *  13- Alterar entidade de d�bito no mediator de entidade operadora. Se
  *  o retorno do alterar for uma mensagem diferente de null, retornar a
  *  mensagem.
  *
  *  14- Criar um objeto do tipo Transacao, com os seguintes valores de atributos:
  *
- * entidadeCredito - a entidade de crédito buscada
- * entidadeDebito - a entidade de débito buscada
- * acao - se ehAcao for true, a ação buscada, caso contrário, null
- * tituloDivida - se ehAcao for false, o título buscado, caso contrário, null
- * valorOperacao - o valor da operação calculado no item 9
+ * entidadeCredito - a entidade de cr�dito buscada
+ * entidadeDebito - a entidade de d�bito buscada
+ * acao - se ehAcao for true, a a��o buscada, caso contr�rio, null
+ * tituloDivida - se ehAcao for false, o t�tulo buscado, caso contr�rio, null
+ * valorOperacao - o valor da opera��o calculado no item 9
  * dataHoraOperacao - a data e a hora atuais
  *
- * 15- Incluir a transação criada no repositório de transação.
+ * 15- Incluir a transa��o criada no reposit�rio de transa��o.
  *
  * public Transacao gerarExtrato(int entidade):
  *
- * 1- para este método funcionar, deve-se acrescentar no repositório de
- * transação o método
+ * 1- para este m�todo funcionar, deve-se acrescentar no reposit�rio de
+ * transa��o o m�todo
  * public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeDebito)
- * A busca deve retornar um array de transações cuja entidadeDebito tenha identificador igual ao
- * recebido como parâmetro.
+ * A busca deve retornar um array de transa��es cuja entidadeDebito tenha identificador igual ao
+ * recebido como par�metro.
  *
- * 2- Buscar as transações onde entidade é credora.
+ * 2- Buscar as transa��es onde entidade � credora.
  *
- * 3- Buscar as transações onde entidade é devedora.
+ * 3- Buscar as transa��es onde entidade � devedora.
  *
- * 4- Colocar as transações buscadas nos itens 2 e 3 em um único novo array.
+ * 4- Colocar as transa��es buscadas nos itens 2 e 3 em um �nico novo array.
  *
  * 5- Ordenar este novo array por dataHoraOperacao decrescente.
  *
  * 6- Retornar o novo array.
  **/
 public class MediatorOperacao {
-
     private static MediatorOperacao instance;
-
-    private MediatorAcao mediatorAcao = MediatorAcao.getInstancia();
-    private MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
-    private MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
+    private MediatorAcao mediatorAcao = MediatorAcao.getInstance();
+    private MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstance();
+    private MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstance();
     private RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
 
-    private MediatorOperacao() {
+    private MediatorOperacao() {}
 
-    }
-
-    public static MediatorOperacao getInstancia() {
+    public static MediatorOperacao getInstance() {
         if (instance == null) {
             instance = new MediatorOperacao();
         }
         return instance;
     }
 
-    public String realizarOperacao(boolean ehAcao, int idEntidadeCredito, int idEntidadeDebito,
-                                    int idAcaoOuTitulo, double valor) throws IOException {
-
-        EntidadeOperadora entidadeCredito = mediatorEntidadeOperadora.buscar(idEntidadeCredito);
-        EntidadeOperadora entidadeDebito = mediatorEntidadeOperadora.buscar(idEntidadeDebito);
-
+    public String realizarOperacao(boolean ehAcao, int entidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor) throws IOException {
         if (valor <= 0) {
-            return "Valor inválido";
+            return "Valor inv�lido";
         }
-        if (entidadeCredito == null) {
-            return "Entidade crédito inexistente";
+        EntidadeOperadora novoCredito = mediatorEntidadeOperadora.buscar(entidadeCredito);
+        if (novoCredito == null) {
+            return "Entidade cr�dito inexistente";
         }
-        if (entidadeDebito == null) {
-            return "Entidade débito inexistente";
+        EntidadeOperadora novoDebito = mediatorEntidadeOperadora.buscar(idEntidadeDebito);
+        if (novoDebito == null) {
+            return "Entidade d�bito inexistente";
         }
-        if (ehAcao && !entidadeCredito.isAutorizadoAcao()) {
-            return "Entidade de crédito não autorizada para ação";
+        if (ehAcao && !novoCredito.getAutorizadoAcao()) {
+            return "Entidade de cr�dito n�o autorizada para a��o";
         }
-        if (ehAcao && !entidadeDebito.isAutorizadoAcao()) {
-            return "Entidade de débito não autorizada para ação";
+        if (ehAcao && !novoDebito.getAutorizadoAcao()) {
+            return "Entidade de d�bito n�o autorizada para a��o";
         }
-
-        Acao acao = null;
-        TituloDivida titulo = null;
-        double valorOperacao = valor;
 
         if (ehAcao) {
-            acao = mediatorAcao.buscar(idAcaoOuTitulo);
-
-            if (entidadeDebito.getSaldoAcao() < valor) {
-                return "Saldo da entidade débito insuficiente";
+            Acao novaAcao = mediatorAcao.buscar(idAcaoOuTitulo);
+            if (novaAcao == null) {
+                return "A��o n�o encontrada";
             }
-            if (acao.getValorUnitario() > valor) {
-                return "Valor da operação é menor do que o valor unitário da ação";
+            if (novaAcao.getValorUnitario() > valor) {
+                return "Valor da opera��o � menor do que o valor unit�rio da a��o";
+            }
+            System.out.println(novoDebito);
+            System.out.println(valor);
+            System.out.println(novoDebito.getSaldoAcao());
+            if (novoDebito.getSaldoAcao() < valor) {
+                return "Saldo da entidade d�bito insuficiente";
+            }
+            System.out.println("Valor"+valor);
+            System.out.println(novoCredito);
+            System.out.println(novoDebito);
+            novoCredito.creditarSaldoAcao(valor);
+            novoDebito.debitarSaldoAcao(valor);
+
+            String resultado = mediatorEntidadeOperadora.alterar(novoCredito);
+            if (resultado != null) {
+                return resultado;
+            }
+            resultado = mediatorEntidadeOperadora.alterar(novoDebito);
+            if (resultado != null) {
+                return resultado;
             }
 
-            entidadeCredito.creditarSaldoAcao(valorOperacao);
-            entidadeDebito.debitarSaldoAcao(valorOperacao);
+            LocalDateTime data = LocalDateTime.now();
+            Transacao transacao = new Transacao(novoCredito, novoDebito, novaAcao, null, valor, data);
+            repositorioTransacao.incluir(transacao);
 
         } else {
-            titulo = mediatorTituloDivida.buscar(idAcaoOuTitulo);
+            TituloDivida novoTitulo = mediatorTituloDivida.buscar(idAcaoOuTitulo);
+            if (novoTitulo == null) {
+                return "T�tulo de d�vida n�o encontrado";
+            }
+            if (novoDebito.getSaldoTituloDivida() < valor) {
+                return "Saldo da entidade d�bito insuficiente";
+            }
+            double valorOperacao = novoTitulo.calcularPrecoTransacao(valor);
 
-            if (entidadeDebito.getSaldoTituloDivida() < valor) {
-                return "Saldo da entidade débito insuficiente";
+            novoCredito.creditarSaldoTituloDivida(valorOperacao);
+            novoDebito.debitarSaldoTituloDivida(valorOperacao);
+
+            String resultado = mediatorEntidadeOperadora.alterar(novoCredito);
+            if (resultado != null) {
+                return resultado;
+            }
+            resultado = mediatorEntidadeOperadora.alterar(novoDebito);
+            if (resultado != null) {
+                return resultado;
             }
 
-            valorOperacao = titulo.calcularPrecoTransacao(valor);
-
-            entidadeCredito.creditarSaldoTituloDivida(valorOperacao);
-            entidadeDebito.debitarSaldoTituloDivida(valorOperacao);
+            LocalDateTime data = LocalDateTime.now();
+            Transacao transacao = new Transacao(novoCredito, novoDebito, null, novoTitulo, valorOperacao, data);
+            repositorioTransacao.incluir(transacao);
         }
-
-        String atualizacaoCredito = mediatorEntidadeOperadora.alterar(entidadeCredito);
-        if (atualizacaoCredito != null) {
-            return atualizacaoCredito;
-        }
-
-        String atualizacaoDebito = mediatorEntidadeOperadora.alterar(entidadeDebito);
-        if (atualizacaoDebito != null) {
-            return atualizacaoDebito;
-        }
-
-        Transacao transacao = new Transacao(entidadeCredito, entidadeDebito, acao, titulo, valorOperacao,
-                LocalDateTime.now());
-
-        repositorioTransacao.incluir(transacao);
         return null;
     }
 
     public Transacao[] gerarExtrato(int entidade) throws IOException {
-        Transacao[] entidadeEhCredora = repositorioTransacao.buscarPorEntidadeCredora(entidade);
-        Transacao[] entidadeEhDevedora = repositorioTransacao.buscarPorEntidadeDevedora(entidade);
-
-        List<Transacao> transacoesCombinadas = new ArrayList<>();
-        Collections.addAll(transacoesCombinadas, entidadeEhCredora);
-        Collections.addAll(transacoesCombinadas, entidadeEhDevedora);
-
-        transacoesCombinadas.sort((t1, t2) -> t2.getDataHoraOperacao().compareTo(t1.getDataHoraOperacao()));
-
-        return transacoesCombinadas.toArray(new Transacao[0]);
+        Entidade[] transacoesCredoras = repositorioTransacao.buscarPorEntidadeCredora(entidade);
+        Entidade[] transacoesDevedoras = repositorioTransacao.buscarPorEntidadeDevedora(entidade);
+        List<Entidade> todasOperacoes = new ArrayList<>();
+        Collections.addAll(todasOperacoes, transacoesCredoras);
+        Collections.addAll(todasOperacoes, transacoesDevedoras);
+        todasOperacoes.sort((t1, t2) -> t2.getDataHoraInclusao().compareTo(t1.getDataHoraInclusao()));
+        return todasOperacoes.toArray(new Transacao[0]);
+    }
+    public List<Acao> obterAcoes() {
+        return mediatorAcao.obterAcoes();
+    }
+    public List<TituloDivida> obterTitulosDivida() {
+        return mediatorTituloDivida.obterTitulosDivida();
     }
 }

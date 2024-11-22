@@ -30,10 +30,11 @@ import java.io.*;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.
  */
 public class RepositorioEntidadeOperadora extends RepositorioGeral{
-    DAOSerializadorObjetos dao = getDao();
-    Class<?> classeEntidade = getClasseEntidade();
+    private final DAOSerializadorObjetos<EntidadeOperadora> dao;
+
     public RepositorioEntidadeOperadora() {
-        super();
+        super(EntidadeOperadora.class);
+        this.dao = new DAOSerializadorObjetos<>(EntidadeOperadora.class);
     }
 
     public boolean incluir(EntidadeOperadora entidadeOperadora) throws IOException {

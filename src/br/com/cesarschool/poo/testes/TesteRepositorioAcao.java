@@ -1,16 +1,15 @@
 package br.com.cesarschool.poo.testes;
 
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
-import br.com.cesarschool.poo.titulos.entidades.Acao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 public class TesteRepositorioAcao extends TesteGeral {
     private static final RepositorioAcao DAO = new RepositorioAcao();

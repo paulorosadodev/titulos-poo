@@ -1,16 +1,15 @@
 package br.com.cesarschool.poo.testes;
 
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 public class TesteRepositorioTituloDivida extends TesteGeral {
     private static final RepositorioTituloDivida DAO = new RepositorioTituloDivida();

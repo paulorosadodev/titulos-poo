@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TelaOperacao extends JFrame {
 
-    private final MediatorOperacao mediatorOperacao = MediatorOperacao.getInstancia();
-    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
+    private final MediatorOperacao mediatorOperacao = MediatorOperacao.getInstance();
+    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstance();
     private final JComboBox<String> cbxEntidadeCredito;
     private final JComboBox<String> cbxEntidadeDebito;
     private final JComboBox<String> cbxTipoAtivo;

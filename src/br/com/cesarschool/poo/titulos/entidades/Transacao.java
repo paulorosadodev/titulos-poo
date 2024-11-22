@@ -1,8 +1,8 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
 import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.com.cesarschool.poo.titulos.utils.Comparavel;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,13 +15,14 @@ import java.time.format.DateTimeFormatter;
  * valorOperacao, do tipo double
  * dataHoraOperacao, do tipo LocalDateTime
  *
- * Deve ter um construtor p�blico que inicializa os atributos.
- * Deve ter m�todos get/set p�blicos para todos os atributos, que
- * s�o read-only fora da classe.
+ * Deve ter um construtor p?blico que inicializa os atributos.
+ * Deve ter m?todos get/set p?blicos para todos os atributos, que
+ * s?o read-only fora da classe.
  *
  *
  */
-public class Transacao extends Entidade {
+public class Transacao extends Entidade implements Comparavel {
+
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -58,31 +59,29 @@ public class Transacao extends Entidade {
         return valorOperacao;
     }
 
-    public LocalDateTime getDataHoraOperacao() {
+    public LocalDateTime getDataHoraOperacao(){
         return dataHoraOperacao;
     }
 
     @Override
-    public String toString() {
-        return "Transacao{" +
-                "\nEntidade Cr�dito: " + entidadeCredito +
-                "\nEntidade D�bito: " + entidadeDebito +
-                "\nA��o: " + acao +
-                "\nT�tulo de d�vida: " + tituloDivida +
-                "\nValor da Opera��o: " + valorOperacao +
-                "\nData da opera��o: " + dataHoraOperacao;
+    public String getIdUnico() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String formattedDateTime = dataHoraOperacao.format(formatter);
+        return entidadeCredito.getIdUnico() + "_"
+                + entidadeDebito.getIdUnico() + "_"
+                + ((acao!= null) ? acao.getIdUnico() : tituloDivida.getIdUnico())
+                + "_" + formattedDateTime;
     }
 
     @Override
-    public String getIdUnico() {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String formattedDateTime = now.format(formatter);
-
-        if (getTituloDivida() == null){
-            return getEntidadeCredito().getIdUnico() + "_" + getEntidadeDebito().getIdUnico() + "_" + getAcao().getIdUnico() + formattedDateTime;
-        } else {
-            return getEntidadeCredito().getIdUnico() + "_" + getEntidadeDebito().getIdUnico() + "_" + getTituloDivida().getIdUnico() + formattedDateTime;
+    public int comparar(Comparavel c) {
+        if (!(c instanceof Transacao)) {
+            throw new IllegalArgumentException("O objeto deve ser do tipo Transacao.");
         }
+        Transacao outraTransacao = (Transacao) c;
+
+        return outraTransacao.getDataHoraOperacao().compareTo(this.dataHoraOperacao);
     }
 }
+
+//OK

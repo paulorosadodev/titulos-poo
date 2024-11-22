@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class TelaEntidadeOperadora extends JFrame {
 
-    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
+    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstance();
     private final JTextField txtIdentificador;
     private final JTextField txtNome;
     private final JCheckBox chkAutorizadoAcao;
@@ -162,7 +162,7 @@ public class TelaEntidadeOperadora extends JFrame {
             EntidadeOperadora entidadeOperadora = mediatorEntidadeOperadora.buscar(identificador);
             if (entidadeOperadora != null) {
                 txtNome.setText(entidadeOperadora.getNome());
-                chkAutorizadoAcao.setSelected(entidadeOperadora.isAutorizadoAcao());
+                chkAutorizadoAcao.setSelected(entidadeOperadora.getAutorizadoAcao());
                 lblMensagem.setText("Entidade Operadora encontrada!");
                 lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde
             } else {

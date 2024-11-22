@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOSerializadorObjetos {
+public class DAOSerializadorObjetos <T extends Entidade & Serializable> {
     private String nomeDiretorio;
 
     public DAOSerializadorObjetos(Class<?> tipoEntidade) {

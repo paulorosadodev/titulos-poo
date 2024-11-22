@@ -14,27 +14,28 @@ import java.io.*;
     2;EUA;2026-01-01;1.5
     3;FRANCA;2027-11-11;2.5
  *
- * A inclus�o deve adicionar uma nova linha ao arquivo. N�o � permitido incluir
- * identificador repetido. Neste caso, o m�todo deve retornar false. Inclus�o com
+ * A inclusão deve adicionar uma nova linha ao arquivo. Não é permitido incluir
+ * identificador repetido. Neste caso, o método deve retornar false. Inclusão com
  * sucesso, retorno true.
  *
- * A altera��o deve substituir a linha atual por uma nova linha. A linha deve ser
- * localizada por identificador que, quando n�o encontrado, enseja retorno false.
- * Altera��o com sucesso, retorno true.
+ * A alteração deve substituir a linha atual por uma nova linha. A linha deve ser
+ * localizada por identificador que, quando não encontrado, enseja retorno false.
+ * Alteração com sucesso, retorno true.
  *
- * A exclus�o deve apagar a linha atual do arquivo. A linha deve ser
- * localizada por identificador que, quando n�o encontrado, enseja retorno false.
- * Exclus�o com sucesso, retorno true.
+ * A exclusão deve apagar a linha atual do arquivo. A linha deve ser
+ * localizada por identificador que, quando não encontrado, enseja retorno false.
+ * Exclusão com sucesso, retorno true.
  *
  * A busca deve localizar uma linha por identificador, materializar e retornar um
- * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.
+ * objeto. Caso o identificador não seja encontrado no arquivo, retornar null.
  */
 
 public class RepositorioTituloDivida extends RepositorioGeral{
-	DAOSerializadorObjetos dao = getDao();
-	Class<?> classeEntidade = getClasseEntidade();
+	private final DAOSerializadorObjetos<TituloDivida> dao;
+
 	public RepositorioTituloDivida() {
-		super();
+		super(TituloDivida.class);
+		this.dao = new DAOSerializadorObjetos<>(TituloDivida.class);
 	}
 
 	public boolean incluir(TituloDivida tituloDivida) throws IOException {

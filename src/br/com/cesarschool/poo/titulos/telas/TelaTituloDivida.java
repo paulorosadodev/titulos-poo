@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 
 public class TelaTituloDivida extends JFrame {
 
-    private final MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
+    private final MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstance();
     private final JTextField txtIdentificador;
     private final JTextField txtNome;
     private final JTextField txtDataValidade;

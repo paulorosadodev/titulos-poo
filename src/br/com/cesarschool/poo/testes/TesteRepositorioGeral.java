@@ -1,16 +1,15 @@
 package br.com.cesarschool.poo.testes;
 
-import java.lang.reflect.Method;
-
-import br.com.cesarschool.poo.titulos.repositorios.*;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.com.cesarschool.poo.titulos.repositorios.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Method;
 
 public class TesteRepositorioGeral extends TesteGeral {
     @Test

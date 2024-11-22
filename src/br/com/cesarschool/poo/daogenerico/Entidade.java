@@ -3,32 +3,23 @@ package br.com.cesarschool.poo.daogenerico;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/*
- * Esta classe representa uma superclasse de todas as entidades.
- *
- * Deve ter os seguintes atributos (com respectivos set e get):
- *	LocalDateTime dataHoraInclusao,
- *  LocalDateTime dataHoraUltimaAlteracao,
- *	String usuarioInclusao e
- *	String usuarioUltimaAlteracao
- *
- * Deve ter um único construtor sem parâmetros.
- *
- * Deve ser abstrata.
- *
- * Deve ter um métod abstrato getIdUnico().
- *
- * Deve implementar a interface Serializable do JAVA
- */
 public abstract class Entidade implements Serializable {
+    private String idUnico;
     private LocalDateTime dataHoraInclusao;
     private LocalDateTime dataHoraUltimaAlteracao;
-    private String usuarioInclusao;
-    private String usuarioUltimaAlteracao;
 
-    public String getUsuarioInclusao() {
-        return usuarioInclusao;
+    public Entidade(String idUnico) {
+        this();
+        this.idUnico = idUnico;
     }
+
+    protected Entidade() {
+        this.dataHoraInclusao = LocalDateTime.now();
+        this.dataHoraUltimaAlteracao = LocalDateTime.now();
+    }
+
+    public abstract String getIdUnico();
+
 
     public LocalDateTime getDataHoraInclusao() {
         return dataHoraInclusao;
@@ -38,31 +29,7 @@ public abstract class Entidade implements Serializable {
         return dataHoraUltimaAlteracao;
     }
 
-    public String getUsuarioUltimaAlteracao() {
-        return usuarioUltimaAlteracao;
-    }
-
-    public void setDataHoraInclusao(LocalDateTime dataHoraInclusao) {
-        this.dataHoraInclusao = dataHoraInclusao;
-    }
-
     public void setDataHoraUltimaAlteracao(LocalDateTime dataHoraUltimaAlteracao) {
         this.dataHoraUltimaAlteracao = dataHoraUltimaAlteracao;
     }
-
-    public void setUsuarioInclusao(String usuarioInclusao) {
-        this.usuarioInclusao = usuarioInclusao;
-    }
-
-    public void setUsuarioUltimaAlteracao(String usuarioUltimaAlteracao) {
-        this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
-    }
-
-    public abstract String getIdUnico();
-
-    public Entidade() {
-        dataHoraInclusao = LocalDateTime.now();
-        dataHoraUltimaAlteracao = LocalDateTime.now();
-    }
-
 }

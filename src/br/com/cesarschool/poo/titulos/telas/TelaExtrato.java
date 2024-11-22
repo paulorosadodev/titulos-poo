@@ -16,8 +16,8 @@ import java.util.List;
 
 public class TelaExtrato extends JFrame {
 
-    private final MediatorOperacao mediatorOperacao = MediatorOperacao.getInstancia();
-    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
+    private final MediatorOperacao mediatorOperacao = MediatorOperacao.getInstance();
+    private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstance();
     private final JComboBox<String> cbxEntidades;
     private final JTextArea txtAreaExtrato;
     private final JLabel lblMensagem;
