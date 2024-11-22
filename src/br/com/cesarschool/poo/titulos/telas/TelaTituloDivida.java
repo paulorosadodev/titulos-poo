@@ -177,7 +177,7 @@ public class TelaTituloDivida extends JFrame {
             TituloDivida tituloDivida = mediatorTituloDivida.buscar(identificador);
             if (tituloDivida != null) {
                 txtNome.setText(tituloDivida.getNome());
-                txtDataValidade.setText(tituloDivida.getDataDeValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                txtDataValidade.setText(tituloDivida.getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 txtTaxaJuros.setText(Double.toString(tituloDivida.getTaxaJuros()));
                 lblMensagem.setText("Título de Dívida encontrado!");
                 lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde

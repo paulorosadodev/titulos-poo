@@ -177,7 +177,7 @@ public class TelaAcao extends JFrame {
             Acao acao = mediatorAcao.buscar(identificador);
             if (acao != null) {
                 txtNome.setText(acao.getNome());
-                txtDataValidade.setText(acao.getDataDeValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                txtDataValidade.setText(acao.getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 txtValorUnitario.setText(Double.toString(acao.getValorUnitario()));
                 lblMensagem.setText("Ação encontrada!");
                 lblMensagem.setForeground(Color.GREEN); // Mensagem de sucesso em verde

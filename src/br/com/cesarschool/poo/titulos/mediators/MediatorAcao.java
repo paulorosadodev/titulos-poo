@@ -83,7 +83,7 @@ public class MediatorAcao {
         if (acao.getNome().length() < 10 || acao.getNome().length() > 100) {
             return "Nome deve ter entre 10 e 100 caracteres.";
         }
-        if (acao.getDataDeValidade().isBefore(LocalDate.now().plusDays(30))) {
+        if (acao.getDataValidade().isBefore(LocalDate.now().plusDays(30))) {
             return "Data de validade deve ter pelo menos 30 dias na frente da data atual.";
         }
         if (acao.getValorUnitario() <= 0) {

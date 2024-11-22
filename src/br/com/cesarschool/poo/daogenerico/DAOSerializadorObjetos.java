@@ -1,4 +1,4 @@
-package br.gov.cesarschool.poo.daogenerico;
+package br.com.cesarschool.poo.daogenerico;
 
 import java.io.*;
 import java.util.ArrayList;

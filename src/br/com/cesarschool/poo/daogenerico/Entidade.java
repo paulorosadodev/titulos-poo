@@ -1,4 +1,4 @@
-package br.gov.cesarschool.poo.daogenerico;
+package br.com.cesarschool.poo.daogenerico;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  *
  * Deve implementar a interface Serializable do JAVA
  */
-public abstract class Entidade<T> implements Serializable {
+public abstract class Entidade implements Serializable {
     private LocalDateTime dataHoraInclusao;
     private LocalDateTime dataHoraUltimaAlteracao;
     private String usuarioInclusao;
@@ -58,7 +58,7 @@ public abstract class Entidade<T> implements Serializable {
         this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
     }
 
-    public abstract T getIdUnico();
+    public abstract String getIdUnico();
 
     public Entidade() {
         dataHoraInclusao = LocalDateTime.now();

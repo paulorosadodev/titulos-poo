@@ -1,4 +1,4 @@
-package br.gov.cesarschool.poo.testes;
+package br.com.cesarschool.poo.testes;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;

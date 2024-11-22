@@ -81,7 +81,7 @@ public class MediatorTituloDivida {
         if (titulo.getNome().length() < 10 || titulo.getNome().length() > 100) {
             return "Nome deve ter entre 10 e 100 caracteres.";
         }
-        if (titulo.getDataDeValidade().isBefore(LocalDate.now().plusDays(180))) {
+        if (titulo.getDataValidade().isBefore(LocalDate.now().plusDays(180))) {
             return "Data de validade deve ter pelo menos 180 dias na frente da data atual.";
         }
         if (titulo.getTaxaJuros() < 0) {
