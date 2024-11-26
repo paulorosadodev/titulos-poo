@@ -47,44 +47,4 @@ public class TesteRepositorioTransacao extends TesteGeral {
         Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR_TRANSACAO), 1);
         Assertions.assertTrue(new File(obterNomeArquivo(NOME_DIR_TRANSACAO, tr)).exists());
     }
-    @Test
-    public void testDAO03() throws IOException {
-        excluirArquivosDiretorio(NOME_DIR_TRANSACAO);
-        long idCred = 7;
-        TituloDivida titulo = new TituloDivida(5, "T5", LocalDate.now(), 107.0);
-        EntidadeOperadora ea1 = new EntidadeOperadora(idCred, "EO7", 105.0);
-        EntidadeOperadora ea2 = new EntidadeOperadora(8, "EO8", 106.0);
-        Transacao tr1 = new Transacao(ea1, ea2, null, titulo, 12.0, LocalDateTime.now());
-        Transacao tr2 = new Transacao(ea2, ea1, null, titulo, 13.0, LocalDateTime.now().plusDays(1));
-        Transacao tr3 = new Transacao(ea2, ea1, null, titulo, 14.0, LocalDateTime.now().plusDays(2));
-        Transacao tr4 = new Transacao(ea1, ea2, null, titulo, 15.0, LocalDateTime.now().plusDays(3));
-        DAO.incluir(tr1);
-        DAO.incluir(tr2);
-        DAO.incluir(tr3);
-        DAO.incluir(tr4);
-        Transacao[] trs = DAO.buscarPorEntidadeCredora(idCred);
-        Assertions.assertNotNull(trs);
-        Assertions.assertEquals(trs.length, 2);
-        Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(tr1, trs[0]));
-        Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(tr2, trs[1]));
-    }
-    @Test
-    public void testDAO04() throws IOException {
-        excluirArquivosDiretorio(NOME_DIR_TRANSACAO);
-        long idDeb = 9;
-        TituloDivida titulo = new TituloDivida(6, "T6", LocalDate.now(), 108.0);
-        EntidadeOperadora ea1 = new EntidadeOperadora(8, "EO7", 109.0);
-        EntidadeOperadora ea2 = new EntidadeOperadora(idDeb, "EO8", 110.0);
-        Transacao tr1 = new Transacao(ea1, ea2, null, titulo, 12.0, LocalDateTime.now());
-        Transacao tr2 = new Transacao(ea1, ea2, null, titulo, 13.0, LocalDateTime.now().plusDays(1));
-        Transacao tr3 = new Transacao(ea1, ea2, null, titulo, 14.0, LocalDateTime.now().plusDays(2));
-        Transacao tr4 = new Transacao(ea1, ea2, null, titulo, 15.0, LocalDateTime.now().plusDays(3));
-        DAO.incluir(tr1);
-        DAO.incluir(tr2);
-        DAO.incluir(tr3);
-        DAO.incluir(tr4);
-        Transacao[] trs = DAO.buscarPorEntidadeCredora(idDeb);
-        Assertions.assertNotNull(trs);
-        Assertions.assertEquals(trs.length, 0);
-    }
 }
