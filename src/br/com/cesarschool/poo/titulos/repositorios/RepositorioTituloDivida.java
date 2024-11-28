@@ -1,7 +1,7 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
-import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 
 import java.io.*;

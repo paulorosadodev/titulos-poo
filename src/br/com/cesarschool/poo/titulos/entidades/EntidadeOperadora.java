@@ -1,6 +1,6 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
-import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
  * Esta classe deve ter os seguintes atributos:

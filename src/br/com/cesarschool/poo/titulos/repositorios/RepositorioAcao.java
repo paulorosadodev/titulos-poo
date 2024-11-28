@@ -1,7 +1,7 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
-import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 
 import java.io.*;
@@ -47,7 +47,6 @@ public class RepositorioAcao extends RepositorioGeral{
     public boolean excluir(int identificador) throws IOException {
         return dao.excluir(String.valueOf(identificador));
     }
-
 
     @Override
     public String toString() {

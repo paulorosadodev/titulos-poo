@@ -1,7 +1,7 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
-import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 public abstract class RepositorioGeral <T extends Entidade>{
     private final Class<T> classeEntidade;
@@ -16,7 +16,6 @@ public abstract class RepositorioGeral <T extends Entidade>{
     }
 
     public abstract Class<T> getClasseEntidade();
-
 
     public boolean incluir(T entidade) {
         return dao.incluir(entidade);
@@ -33,7 +32,6 @@ public abstract class RepositorioGeral <T extends Entidade>{
     public Entidade buscar(String id) {
         return dao.buscar(id);
     }
-
 
     public Entidade[] buscarTodos() {
         return dao.buscarTodos();

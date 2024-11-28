@@ -1,6 +1,6 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
-import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
